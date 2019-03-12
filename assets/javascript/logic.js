@@ -86,7 +86,6 @@ $.ajax({
     url: countryQueryURL,
     method: "GET"
     }).then(function (response) {
-        console.log(response);
         let results = response;
         let countryData = {
             "nameCountry": results.name,
@@ -99,25 +98,33 @@ $.ajax({
             "currencyName": results.currencies[0].name,
             "currencyCode": results.currencies[0].code
     }
-    console.log(countryData);
+    // console.log(countryData);
+    // Expected output:
+    // countryData = {
+            // capital: "Santo Domingo"
+            // currencyCode: "DOP"
+            // currencyName: "Dominican peso"
+            // flag: "https://restcountries.eu/data/dom.svg"
+            // language: "Spanish"
+            // language-code: "es"
+            // nameCountry: "Dominican Republic"
+            // population: 10075045
+            // region: "Americas"
+            // }
 
     // take the country name and capital name selected from the map 
     // and put it into a format that can be used with the weather and time API calls
     let countryName = countryData.nameCountry
     countryCapitalName = countryData.capital;
-    console.log(countryName, countryCapitalName);
+    //console.log(countryName, countryCapitalName);
 
     // ------------- WEATHER API CALL------------- 
     let locationOfInterest = (countryCapitalName.replace(" ", "+") + "," + countryName.replace(" ", "+"));
-    console.log("this is the loc of interest: " + locationOfInterest);
     var weatherQueryURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?format=json&key=" + worldweatherApiKey + "&q=" + location;
-    console.log(weatherQueryURL);
     $.ajax({
         url: weatherQueryURL,
         method: "GET"
         }).then(function (weatherResponse) {
-            console.log("This is the weather object");
-            console.log(weatherResponse);
             // populate an array with weather info where INDEX 0 is the current date and time 
             // and the next subsequent days are forecasted moving forward
             let forecastWeather6days = {};
@@ -134,7 +141,17 @@ $.ajax({
                     "minTempF": weatherResponse.data.weather[i].mintempF
                 }
         }
-        console.log(forecastWeather6days);
+        // console.log(forecastWeather6days);
+        // Expected output:
+            // forecastWeather6days = {
+            // 0: {currentWeatherC: "36", currentWeatherF: "97", currentWeatherIcon: "http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"}
+            // 1: {maxTempC: "40", minTempC: "27", maxTempF: "104", minTempF: "80"}
+            // 2: {maxTempC: "41", minTempC: "26", maxTempF: "105", minTempF: "80"}
+            // 3: {maxTempC: "41", minTempC: "27", maxTempF: "105", minTempF: "80"}
+            // 4: {maxTempC: "39", minTempC: "27", maxTempF: "103", minTempF: "81"}
+            // 5: {maxTempC: "38", minTempC: "26", maxTempF: "101", minTempF: "80"}
+            // 6: {maxTempC: "39", minTempC: "25", maxTempF: "101", minTempF: "77"}
+            // }
     });//end of WEATHER API CALL
 
     // ------------- TIME OF LOCATION OF INTEREST ------------- 
@@ -143,18 +160,18 @@ $.ajax({
         url: timeQueryURL,
         method: "GET"
         }).then(function (timeResponse) {
-            console.log(timeResponse);
             let locationOfInterestTime = {
                 "dateTime":timeResponse.data.time_zone[0].localtime,
                 "utcOffset":timeResponse.data.time_zone[0].utcOffset, 
                 "timeZone": timeResponse.data.time_zone[0].zone
             };
-            console.log(locationOfInterestTime);
+            // console.log(locationOfInterestTime);
+            // Expected Output: 
+            // locationOfInterestTime = 
+            // {dateTime: "2019-03-12 17:28", utcOffset: "-4.0", timeZone: "America/Santo_Domingo"}
+
     });//end of TIME OF LOCATION OF INTEREST
     
-    // EXAMPLE TIMERESPONSE:
-    locationOfInterestTime = { dateTime: "2019-03-12 14:00", timeZone: "America/Santo_Domingo", utcOffset: "-4.0" }
-
     // ------------- CALCULATE THE TIME using moment.js------------- 
     // get current user local time
     let epochUserLocalTime = moment(); //number of seconds since January 1, 197
@@ -165,10 +182,16 @@ $.ajax({
     let prettyLocalTime = epochUserLocalTime.format('MMMM Do YYYY, HH:mm:ss');
     let prettyRemoteTime = epochRemoteTime.format('MMMM Do YYYY, HH:mm:ss')
     //log the times to screen
-    console.log("pretty current time: " + prettyLocalTime);
-    console.log("epoch current time: " + epochUserLocalTime)
-    console.log("pretty remote time: " + prettyRemoteTime);
-    console.log("epoch remote time: " + epochRemoteTime);
+    // console.log("pretty current time: " + prettyLocalTime);
+    // console.log("epoch current time: " + epochUserLocalTime)
+    // console.log("pretty remote time: " + prettyRemoteTime);
+    // console.log("epoch remote time: " + epochRemoteTime);
+
+    //Expected output:
+    // pretty current time: March 12th 2019, 14:28:17
+    // logic.js:168 epoch current time: 1552426097800
+    // logic.js:169 pretty remote time: March 12th 2019, 17:28:17
+    // logic.js:170 epoch remote time: 1552426097800
 
 });//end of COUNTRY API CALL
 
