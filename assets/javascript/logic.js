@@ -1,25 +1,12 @@
-  /* Initialize Firebase
-  var config = {
-    apiKey: apiKey,
+let firebaseApiKey= "AIzaSyBvUT-jpC4knutoC3105OoxGyPmwPruf0I";
+
+var config = {
+  apiKey: firebaseApiKey,
     authDomain: "project1-616bd.firebaseapp.com",
     databaseURL: "https://project1-616bd.firebaseio.com",
     projectId: "project1-616bd",
     storageBucket: "project1-616bd.appspot.com",
     messagingSenderId: "39559179000"
-  };
-  firebase.initializeApp(config); */
-
-   /* global moment firebase */
-// Initialize Firebase
-// Make sure to match the configuration to the script version number in the HTML
-// (Ex. 3.0 != 3.7.0)
-var config = {
-  apiKey: "AIzaSyD1eVlZJkk53xp0qdph7FvHZNhFDLtQOwU",
-  authDomain: "classacitivity.firebaseapp.com",
-  databaseURL: "https://classacitivity.firebaseio.com",
-  projectId: "classacitivity",
-  storageBucket: "classacitivity.appspot.com",
-  messagingSenderId: "978114446376"
 };
 firebase.initializeApp(config);
 
@@ -79,7 +66,7 @@ $("#anychart-embed-ZgsIrI7P").show();
 });
 
 var access_key = "0ca86bec1f0165a7741f";
-var currency = "COP";
+var currency;
 
 // execute the conversion using the "convert" endpoint:
 $.ajax({   
