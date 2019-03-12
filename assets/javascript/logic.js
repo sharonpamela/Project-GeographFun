@@ -72,8 +72,7 @@ $("#start-button").on("click", function (event) {
 $.ajax({
     url: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_" + currency + "," + currency + "_USD&compact=ultra&apiKey=" + access_key,
     method: "GET"
-}).then(function (response) {
-    console.log(response);
+    }).then(function (response) {
 });
 
 // ------------- COUNTRY API CALL ------------- 
