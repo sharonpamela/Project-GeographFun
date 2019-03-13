@@ -93,25 +93,24 @@ $.ajax({
             "population": results.population,
             "currencyName": results.currencies[0].name,
             "currencyCode": results.currencies[0].code
-    }
-    console.log(countryData);
-    // make dictionary into string
-    let strCountryData = JSON.stringify(countryData);
-    // Store all content into localStorage
-    localStorage.setItem("strCountryData", strCountryData);
-
-    // Expected output:
-    // countryData = {
-        // capital: "Washington, D.C."
-        // countryName: "United States of America"
-        // currencyCode: "USD"
-        // currencyName: "United States dollar"
-        // flag: "https://restcountries.eu/data/usa.svg"
-        // language: "English"
-        // language-code: "en"
-        // population: 323947000
-        // region: "Americas"
-        // }
+        }
+        console.log(countryData);
+        // make dictionary into string
+        let strCountryData = JSON.stringify(countryData);
+        // Store all content into localStorage
+        localStorage.setItem("strCountryData", strCountryData);
+        // Expected output:
+        // countryData = {
+            // capital: "Washington, D.C."
+            // countryName: "United States of America"
+            // currencyCode: "USD"
+            // currencyName: "United States dollar"
+            // flag: "https://restcountries.eu/data/usa.svg"
+            // language: "English"
+            // language-code: "en"
+            // population: 323947000
+            // region: "Americas"
+            // }
 
     // ------------- CURRENCY -------------
     // execute the  conversion using the "convert" endpoint:
@@ -220,20 +219,20 @@ $.ajax({
 });
 
 
- // retrieve the country from localStorage
- let strCountryData = localStorage.getItem("strCountryData");
- // parse dictionaries back into json format
- let objCountryData = JSON.parse(strCountryData);
+// retrieve the country from localStorage
+let strCountryData = localStorage.getItem("strCountryData");
+// parse dictionaries back into json format
+let objCountryData = JSON.parse(strCountryData);
 
- // retrieve the weather from localStorage
- let strForecastWeather6dayse = localStorage.getItem("strForecastWeather6dayse");
- // parse dictionaries back into json format
- let objForecastWeather6dayse = JSON.parse(strForecastWeather6dayse);
+// retrieve the weather from localStorage
+let strForecastWeather6dayse = localStorage.getItem("strForecastWeather6dayse");
+// parse dictionaries back into json format
+let objForecastWeather6dayse = JSON.parse(strForecastWeather6dayse);
 
-  // retrieve the time from localStorage
-  //let strLocationOfInterestTime = localStorage.getItem("strLocationOfInterestTime");
-  // parse dictionaries back into json format
-  //let objLocationOfInterestTime = JSON.parse(strLocationOfInterestTime);
+// retrieve the time from localStorage
+let strLocationOfInterestTime = localStorage.getItem("strLocationOfInterestTime");
+// parse dictionaries back into json format
+let objLocationOfInterestTime = JSON.parse(strLocationOfInterestTime);
  
 
 $("#country_name").text(objCountryData.countryName);
