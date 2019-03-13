@@ -186,7 +186,7 @@ $.ajax({
             let strLocationOfInterestTime = JSON.stringify(locationOfInterestTime);
             // Store all content into localStorage
             localStorage.setItem("strLocationOfInterestTime", strLocationOfInterestTime);            
-            
+        
             // Expected Output: 
             // locationOfInterestTime = 
             // {dateTime: "2019-03-12 17:28", utcOffset: "-4.0", timeZone: "America/Santo_Domingo"}
@@ -217,9 +217,27 @@ $.ajax({
 
     // ############ redirect to game page ############ 
     window.location.href = "gamepage.html";
-    $("#country_name").text("Colombia");
-
 });
+
+
+ // retrieve the country from localStorage
+ let strCountryData = localStorage.getItem("strCountryData");
+ // parse dictionaries back into json format
+ let objCountryData = JSON.parse(strCountryData);
+
+ // retrieve the weather from localStorage
+ let strForecastWeather6dayse = localStorage.getItem("strForecastWeather6dayse");
+ // parse dictionaries back into json format
+ let objForecastWeather6dayse = JSON.parse(strForecastWeather6dayse);
+
+  // retrieve the time from localStorage
+  //let strLocationOfInterestTime = localStorage.getItem("strLocationOfInterestTime");
+  // parse dictionaries back into json format
+  //let objLocationOfInterestTime = JSON.parse(strLocationOfInterestTime);
+ 
+
+$("#country_name").text(objCountryData.countryName);
+
 
 // $("#capital-city").click(countryData, function(object1) {
 //     $("#instructions").hide();
@@ -233,12 +251,7 @@ $.ajax({
 // });
 
 $("#capital-city").on("click",function() {
-    // retrieve the country from localStorage
-    let strCountryData = localStorage.getItem("strCountryData");
-
-    // parse dictionaries back into json format
-    let objCountryData = JSON.parse(strCountryData);
-
+  
     console.log(objCountryData);
 
     $("#instructions").hide();
@@ -251,27 +264,59 @@ $("#capital-city").on("click",function() {
     $("#capital").show();
 });
 
-function CommaFormatted(amount) {
-	var delimiter = ","; // replace comma if desired
-	var a = amount.split('.',2)
-	var d = a[1];
-	var i = parseInt(a[0]);
-	if(isNaN(i)) { return ''; }
-	var minus = '';
-	if(i < 0) { minus = '-'; }
-	i = Math.abs(i);
-	var n = new String(i);
-	var a = [];
-	while(n.length > 3) {
-		var nn = n.substr(n.length-3);
-		a.unshift(nn);
-		n = n.substr(0,n.length-3);
-	}
-	if(n.length > 0) { a.unshift(n); }
-	n = a.join(delimiter);
-	if(d.length < 1) { amount = n; }
-	else { amount = n + '.' + d; }
-	amount = minus + amount;
-	return amount;
+$("#display_flag").click(function() {
+    clear_display();
+    $("#display").append('<img id="flag" class="animated flip" src="https://restcountries.eu/data/col.svg">');
+});
+
+$("#display_lang").click(function() {
+    clear_display();
+    $("#language").append('<h3>The official language of Colombia is Spanish.<h3>');
+    $("#language").append('<p>Click here to translate all the words on this page!</p>');
+    $("#language").append('<p>Hello</p>');
+    $("#language").append('<p>Goodbye</p>');
+    $("#language").append('<p>Thank you</p>');
+});
+
+$("#display_weather").click(function() {
+    clear_display();
+    $("#weather").append('<img class="animated heartBeat" src="http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png">');
+    $("#weather").append('<h3 class="animated tada">It is currently 72℉ in Capital City.</h3>');       
+    $("#weather").append('<h7>Click image and see what happens</h7>');
+    $("#weather").append('<p class="animated slideInLeft">Next 3-day Weather Forecast</p>');
+    $("#weather").append('<p>High <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>');
+    $("#weather").append('<p>Low <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>')   
+});
+
+$("#display_currency").click(function() {
+    clear_display();
+    $("#currency").append('<h3>Colombia uses Colombian peso $.<h3>');
+    $("#currency").append('<p>$1 US Dollar = $ 3153.3 Colombian peso</p>');
+    $("#currency").append('<p>or</p>');
+    $("#currency").append('<p>$1 COLombian peso = $ 0.000317 US Dollar</p>');    
+});
+
+$("#display_timedate").click(function() {
+    clear_display();
+    $("#date-time").append('<h3 class="animated fadeInDown">Current date and time in </h3>');
+    $("#date-time").append('<h3 class="animated fadeInDown delay-1s">Capital City, Country</h3>');
+    $("#date-time").append('<p class="animated flash delay-2s">March 12th 2019, 17:28:17</p>');
+    $("#date-time").append('<button id="toggle-btn2">Click for your local date/time</button>');
+    $("#date-time").append('<p id="localtime" style="display: none;">March 12th 2019, 14:28:17</p>');
+        $("#toggle-btn2").click(function() {
+           $("#localtime").show();
+        });
+
+});
+
+function clear_display() {
+    $("#instructions").hide();
+    $("#flag").remove();
+    $("#capital").empty();
+    $("#language").empty();
+    $("#currency").empty();
+    $("#weather").empty();
+    $("#date-time").empty();
 }
+
 
