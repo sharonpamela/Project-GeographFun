@@ -254,14 +254,12 @@ $("#capital-city").on("click",function() {
   
     console.log(objCountryData);
 
-    $("#instructions").hide();
-    $("#capital").empty();
+    clear_display();
     $("#capital").append('<h3 class="animated pulse">The capital city of ' + objCountryData.countryName + ' is ' + objCountryData.capital+ '.</h3>');
     // $("#capital").append('<p>' + object1.countryName + 'is in the ' + object1.regionName + ' of region.</p>');
     // $("#capital").append("<p>The country's population is currently at</p>");
     //var population_string = CommaFormatted(object1.population);
     // $("#capital").append('<p style="font-size: 75px;" class="animated tada delay-1s">' + object1.population + '</p>');
-    $("#capital").show();
 });
 
 $("#display_flag").click(function() {
@@ -280,12 +278,12 @@ $("#display_lang").click(function() {
 
 $("#display_weather").click(function() {
     clear_display();
-    $("#weather").append('<img class="animated heartBeat" src="http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png">');
+    $("#weather").append('<img id="weather_img" class="animated heartBeat" src="http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png">');
     $("#weather").append('<h3 class="animated tada">It is currently 72℉ in Capital City.</h3>');       
     $("#weather").append('<h7>Click image and see what happens</h7>');
     $("#weather").append('<p class="animated slideInLeft">Next 3-day Weather Forecast</p>');
-    $("#weather").append('<p>High <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>');
-    $("#weather").append('<p>Low <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>')   
+    $("#weather").append('<p id="high_temp">High <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>');
+    $("#weather").append('<p id="low_temp">Low <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>');   
 });
 
 $("#display_currency").click(function() {
@@ -304,7 +302,7 @@ $("#display_timedate").click(function() {
     $("#date-time").append('<button id="toggle-btn2">Click for your local date/time</button>');
     $("#date-time").append('<p id="localtime" style="display: none;">March 12th 2019, 14:28:17</p>');
         $("#toggle-btn2").click(function() {
-           $("#localtime").show();
+           $("#localtime").toggle(display);
         });
 
 });
