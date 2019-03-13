@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/gamepage.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-database.js"></script>
+
+    <!-- Added link to the jQuery Library -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment-timezone-with-data-2012-2022.min.js"></script>
+
+
+</head>
+<body>
+    <div class="main-container">
+
+            <div class="nav-bar">
+                <header id="header-setting1">
+                    <h1 id="country_name" class="animated rotateInDownLeft"></h1>
+                </header>         
+                <ul class="animated lightSpeedIn">
+                    <li class="left-marg"><a href="#">Map of the World</a></li>
+                    <li class="left-marg right-marg"><a href="#">Intro Page</a></li>
+                    <li class="right-marg"><a href="#">About</a></li>
+                </ul>
+            </div>
+            <div class="container">
+                <div class="box-settings">
+                    <div class="pin-img1 img-holder animated flipInX">
+                        <img src="assets/images/weather.jpg" alt="Weather">
+                        <div class="text-block"> 
+                            <a href="#"><h2>Weather</h2></a>
+                        </div>
+                    </div>
+                    <div class="pin-img2 img-holder animated flipInY">
+                        <img src="assets/images/timeclock.png" alt="Date/Time">
+                        <div class="text-block"> 
+                            <a href="#"><h2>Current Date/Time</h2></a>
+                        </div>
+                    </div>     
+                    <div class="pin-img3 img-holder animated rollIn">
+                        <img src="assets/images/flag.png" alt="Flag">
+                        <div class="text-block"> 
+                            <a href="#"><h2>National Flag</h2></a>
+                        </div>
+                    </div>
+                    <div class="pin-img4 img-holder animated bounce">
+                        <img src="assets/images/map.png" alt="Capital City">
+                        <div class="text-block"> 
+                            <a id="capital-city" href="#"><h2>Capital City</h2></a>
+                        </div>
+                    </div>     
+                    <div class="pin-img5 img-holder animated zoomIn">
+                        <img src="assets/images/money.jpg" alt="Currency">
+                        <div class="text-block"> 
+                            <a href="#"><h2>Currency</h2></a>
+                        </div>
+                    </div>
+                    <div class="pin-img6 img-holder animated fadeInDown">
+                        <img src="assets/images/language.jpg" alt="Language">
+                        <div class="text-block"> 
+                            <a href="#"><h2>Language</h2></a>
+                        </div>
+                    </div> 
+                    <div class="pin-img7 img-holder animated fadeInRight">
+                        <img src="assets/images/game.jpg" alt="Game">
+                        <div class="text-block"> 
+                            <a href="#"><h2>Game</h2></a>
+                        </div>
+                    </div>               
+                </div>
+                <div id="display">
+                    <p id="instructions">Click on the pictures above to display information.</p>
+                    <img class="animated flip" style="display: none;" src="https://restcountries.eu/data/col.svg">
+                    <div id="language" style="display: none;">
+                        <h3>The official language of Colombia is Spanish.<h3>
+                        <p>Click here to translate all the words on this page!</p>
+                        <p>Hello</p>
+                        <p>Goodbye</p>
+                        <p>Thank you</p>
+                    </div>
+                    <div id="currency" style="display: none;">
+                        <h3>Colombia uses Colombian peso $.<h3>
+                        <p>$1 US Dollar = $ 3153.3 Colombian peso</p>
+                        <p>or</p>
+                        <p>$1 COLombian peso = $ 0.000317 US Dollar</p>
+                    </div>
+                    <div id="weather" style="display: none;">
+                        <img class="animated heartBeat" src="http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png">
+                        <h3 class="animated tada">It is currently 72℉ in Capital City.</h3>       
+                        <h7>Click image and see what happens</h7>
+                        <p class="animated slideInLeft">Next 3-day Weather Forecast</p>
+                        <p>High <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>
+                        <p>Low <u class="animated fadeInDown delay-1s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-2s">72℉</u>&nbsp;&nbsp;&nbsp;&nbsp;<u class="animated fadeInDown delay-3s">72℉</u></p>   
+                    </div>
+                    <div id="date-time" style="display: none;">
+                        <h3 class="animated fadeInDown">Current date and time in </h3>
+                        <h3 class="animated fadeInDown delay-1s">Capital City, Country</h3>
+                        <p class="animated flash delay-2s">March 12th 2019, 17:28:17</p>
+                        <button id="toggle-btn2">Click for your local date/time</button>
+                        <p>March 12th 2019, 14:28:17</p>
+                    </div>
+                    <div id="capital" style="display: none;">
+                    </div>
+                    
+                </div> 
+            </div>
+            <footer>Happy Exploring!</footer> 
+    </div>
+    <script type="text/javascript" src="assets/javascript/keys.js"></script>
+    <script type="text/javascript" src="assets/javascript/logic.js"></script>
+</body>
+</html>

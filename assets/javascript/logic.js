@@ -14,7 +14,8 @@ firebase.initializeApp(config);
 let countryCapitalName;
 var country;
 var access_key = "0ca86bec1f0165a7741f";
-var currency = "COP";
+var currency;
+var countryData;
 
 // Create a variable to reference the database.
 var database = firebase.database();
@@ -65,19 +66,13 @@ $("#start-button").on("click", function (event) {
     $("#anychart-embed-ZgsIrI7P").show();
 });
 
+$("#anychart-embed-ZgsIrI7P").dblclick(function(){
+
+
 // ############ construct API query URLs ############ 
 
-// ------------- CURRENCY -------------
-// execute the  conversion using the "convert" endpoint:
-$.ajax({
-    url: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_" + currency + "," + currency + "_USD&compact=ultra&apiKey=" + access_key,
-    method: "GET"
-    }).then(function (response) {
-    console.log(response);
-});
-
 // ------------- COUNTRY API CALL ------------- 
-country = "DO";
+//country = "DO";
 // note: this code is based on ISO_3166-2, a 2 digit country code
 // the list of all country codes can be found here: https://en.wikipedia.org/wiki/ISO_3166-2
 let countryQueryURL = "https://restcountries.eu/rest/v2/alpha/" + country;
@@ -87,7 +82,7 @@ $.ajax({
     method: "GET"
     }).then(function (response) {
         let results = response;
-        let countryData = {
+        countryData = {
             "nameCountry": results.name,
             "capital": results.capital,
             "region": results.region,
@@ -98,7 +93,7 @@ $.ajax({
             "currencyName": results.currencies[0].name,
             "currencyCode": results.currencies[0].code
     }
-    // console.log(countryData);
+    console.log(countryData);
     // Expected output:
     // countryData = {
             // capital: "Santo Domingo"
@@ -112,10 +107,23 @@ $.ajax({
             // region: "Americas"
             // }
 
+       // ------------- CURRENCY -------------
+    // execute the  conversion using the "convert" endpoint:
+    currency = countryData.currencyCode;
+    console.log(currency);
+    $.ajax({
+        url: "https://free.currencyconverterapi.com/api/v6/convert?q=USD_" + currency + "," + currency + "_USD&compact=ultra&apiKey=" + access_key,
+        method: "GET"
+        }).then(function (response) {
+        console.log(response);
+    });
+
+    
     // take the country name and capital name selected from the map 
     // and put it into a format that can be used with the weather and time API calls
     let countryName = countryData.nameCountry
     countryCapitalName = countryData.capital;
+    let locationOfInterestTime = {};
     //console.log(countryName, countryCapitalName);
 
     // ------------- WEATHER API CALL------------- 
@@ -160,11 +168,11 @@ $.ajax({
         url: timeQueryURL,
         method: "GET"
         }).then(function (timeResponse) {
-            let locationOfInterestTime = {
+            locationOfInterestTime = {
                 "dateTime":timeResponse.data.time_zone[0].localtime,
                 "utcOffset":timeResponse.data.time_zone[0].utcOffset, 
                 "timeZone": timeResponse.data.time_zone[0].zone
-            };
+            }
             // console.log(locationOfInterestTime);
             // Expected Output: 
             // locationOfInterestTime = 
@@ -182,9 +190,9 @@ $.ajax({
     let prettyLocalTime = epochUserLocalTime.format('MMMM Do YYYY, HH:mm:ss');
     let prettyRemoteTime = epochRemoteTime.format('MMMM Do YYYY, HH:mm:ss')
     //log the times to screen
-    // console.log("pretty current time: " + prettyLocalTime);
+    console.log("pretty current time: " + prettyLocalTime);
     // console.log("epoch current time: " + epochUserLocalTime)
-    // console.log("pretty remote time: " + prettyRemoteTime);
+    console.log("pretty remote time: " + prettyRemoteTime);
     // console.log("epoch remote time: " + epochRemoteTime);
 
     //Expected output:
@@ -194,5 +202,43 @@ $.ajax({
     // logic.js:170 epoch remote time: 1552426097800
 
 });//end of COUNTRY API CALL
+    window.location.href = "gamepage.html";
+    $("#country_name").text("Colombia");
 
+});
+
+$("#capital-city").click(countryData, function(object1) {
+    $("#instructions").hide();
+    $("#capital").empty();
+    $("#capital").append('<h3 class="animated pulse">The capital city of' + object1.countryName + ' is ' + object1.capital+ '.</h3>');
+    $("#capital").append('<p>' + object1.countryName + 'is in the ' + object1.regionName + ' of region.</p>');
+    $("#capital").append("<p>The country's population is currently at</p>");
+    //var population_string = CommaFormatted(object1.population);
+    $("#capital").append('<p style="font-size: 75px;" class="animated tada delay-1s">' + object1.population + '</p>');
+    $("#capital").show();
+});
+
+function CommaFormatted(amount) {
+	var delimiter = ","; // replace comma if desired
+	var a = amount.split('.',2)
+	var d = a[1];
+	var i = parseInt(a[0]);
+	if(isNaN(i)) { return ''; }
+	var minus = '';
+	if(i < 0) { minus = '-'; }
+	i = Math.abs(i);
+	var n = new String(i);
+	var a = [];
+	while(n.length > 3) {
+		var nn = n.substr(n.length-3);
+		a.unshift(nn);
+		n = n.substr(0,n.length-3);
+	}
+	if(n.length > 0) { a.unshift(n); }
+	n = a.join(delimiter);
+	if(d.length < 1) { amount = n; }
+	else { amount = n + '.' + d; }
+	amount = minus + amount;
+	return amount;
+}
 

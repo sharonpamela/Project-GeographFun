@@ -58,6 +58,7 @@ input {
   font-weight: bold;
   cursor: pointer;
   font-family: 'Amatic SC', cursive;
+  margin-top: 5px;
 }
 
 h2 {
