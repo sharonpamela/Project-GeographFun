@@ -11,11 +11,11 @@ firebase.initializeApp(config);
 
 
 // initialize GLOBAL variables 
-let countryCapitalName;
-var country;
 var access_key = "0ca86bec1f0165a7741f";
+var country;
 var currency;
 var countryData;
+var locationOfInterestTime;
 
 // Create a variable to reference the database.
 var database = firebase.database();
@@ -68,8 +68,9 @@ $("#start-button").on("click", function (event) {
 
 $("#anychart-embed-ZgsIrI7P").dblclick(function(){
 
-
 // ############ construct API query URLs ############ 
+// Clear localStorage before storing each api response
+localStorage.clear();
 
 // ------------- COUNTRY API CALL ------------- 
 //country = "DO";
@@ -83,7 +84,7 @@ $.ajax({
     }).then(function (response) {
         let results = response;
         countryData = {
-            "nameCountry": results.name,
+            "countryName": results.name,
             "capital": results.capital,
             "region": results.region,
             "flag": results.flag,
@@ -94,20 +95,25 @@ $.ajax({
             "currencyCode": results.currencies[0].code
     }
     console.log(countryData);
+    // make dictionary into string
+    let strCountryData = JSON.stringify(countryData);
+    // Store all content into localStorage
+    localStorage.setItem("strCountryData", strCountryData);
+
     // Expected output:
     // countryData = {
-            // capital: "Santo Domingo"
-            // currencyCode: "DOP"
-            // currencyName: "Dominican peso"
-            // flag: "https://restcountries.eu/data/dom.svg"
-            // language: "Spanish"
-            // language-code: "es"
-            // nameCountry: "Dominican Republic"
-            // population: 10075045
-            // region: "Americas"
-            // }
+        // capital: "Washington, D.C."
+        // countryName: "United States of America"
+        // currencyCode: "USD"
+        // currencyName: "United States dollar"
+        // flag: "https://restcountries.eu/data/usa.svg"
+        // language: "English"
+        // language-code: "en"
+        // population: 323947000
+        // region: "Americas"
+        // }
 
-       // ------------- CURRENCY -------------
+    // ------------- CURRENCY -------------
     // execute the  conversion using the "convert" endpoint:
     currency = countryData.currencyCode;
     console.log(currency);
@@ -119,16 +125,13 @@ $.ajax({
     });
 
     
-    // take the country name and capital name selected from the map 
-    // and put it into a format that can be used with the weather and time API calls
-    let countryName = countryData.nameCountry
-    countryCapitalName = countryData.capital;
-    let locationOfInterestTime = {};
-    //console.log(countryName, countryCapitalName);
-
+    // use country name and capital name selected from the map in the weather and time API calls query
+    let countryName = countryData.countryName
+    let countryCapitalName = countryData.capital;
+    
     // ------------- WEATHER API CALL------------- 
     let locationOfInterest = (countryCapitalName.replace(" ", "+") + "," + countryName.replace(" ", "+"));
-    var weatherQueryURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?format=json&key=" + worldweatherApiKey + "&q=" + location;
+    var weatherQueryURL = "https://api.worldweatheronline.com/premium/v1/weather.ashx?format=json&key=07446752c7d0497b977214242190803&q=" + location;
     $.ajax({
         url: weatherQueryURL,
         method: "GET"
@@ -149,7 +152,12 @@ $.ajax({
                     "minTempF": weatherResponse.data.weather[i].mintempF
                 }
         }
-         console.log(forecastWeather6days);
+        console.log(forecastWeather6days);
+        // make dictionary into string
+        let strForecastWeather6dayse = JSON.stringify(forecastWeather6days);
+        // Store all content into localStorage
+        localStorage.setItem("strLocationOfInterestTime", strForecastWeather6dayse);
+
         // Expected output:
             // forecastWeather6days = {
             // 0: {currentWeatherC: "36", currentWeatherF: "97", currentWeatherIcon: "http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"}
@@ -162,8 +170,8 @@ $.ajax({
             // }
     });//end of WEATHER API CALL
 
-    // ------------- TIME OF LOCATION OF INTEREST ------------- 
-    var timeQueryURL = "https://api.worldweatheronline.com/premium/v1/tz.ashx?format=json&key="+worldweatherApiKey+"&q="+locationOfInterest;
+    // ------------- TIME OF LOCATION OF INTEREST API CALL ------------- 
+    var timeQueryURL = "https://api.worldweatheronline.com/premium/v1/tz.ashx?format=json&key=07446752c7d0497b977214242190803&q="+locationOfInterest;
     $.ajax({
         url: timeQueryURL,
         method: "GET"
@@ -173,14 +181,18 @@ $.ajax({
                 "utcOffset":timeResponse.data.time_zone[0].utcOffset, 
                 "timeZone": timeResponse.data.time_zone[0].zone
             }
-            // console.log(locationOfInterestTime);
+            console.log(locationOfInterestTime);
+            // make dictionary into string
+            let strLocationOfInterestTime = JSON.stringify(locationOfInterestTime);
+            // Store all content into localStorage
+            localStorage.setItem("strLocationOfInterestTime", strLocationOfInterestTime);            
+            
             // Expected Output: 
             // locationOfInterestTime = 
             // {dateTime: "2019-03-12 17:28", utcOffset: "-4.0", timeZone: "America/Santo_Domingo"}
-
     });//end of TIME OF LOCATION OF INTEREST
     
-    // ------------- CALCULATE THE TIME using moment.js------------- 
+    // ############ CALCULATE THE TIME using moment.js ############ 
     // get current user local time
     let epochUserLocalTime = moment(); //number of seconds since January 1, 197
     // convert local user time to remote location's time
@@ -201,20 +213,41 @@ $.ajax({
     // logic.js:169 pretty remote time: March 12th 2019, 17:28:17
     // logic.js:170 epoch remote time: 1552426097800
 
-});//end of COUNTRY API CALL
+    });//end of COUNTRY API CALL
+
+    // ############ redirect to game page ############ 
     window.location.href = "gamepage.html";
     $("#country_name").text("Colombia");
 
 });
 
-$("#capital-city").click(countryData, function(object1) {
+// $("#capital-city").click(countryData, function(object1) {
+//     $("#instructions").hide();
+//     $("#capital").empty();
+//     $("#capital").append('<h3 class="animated pulse">The capital city of' + object1.countryName + ' is ' + object1.capital+ '.</h3>');
+//     $("#capital").append('<p>' + object1.countryName + 'is in the ' + object1.regionName + ' of region.</p>');
+//     $("#capital").append("<p>The country's population is currently at</p>");
+//     //var population_string = CommaFormatted(object1.population);
+//     $("#capital").append('<p style="font-size: 75px;" class="animated tada delay-1s">' + object1.population + '</p>');
+//     $("#capital").show();
+// });
+
+$("#capital-city").on("click",function() {
+    // retrieve the country from localStorage
+    let strCountryData = localStorage.getItem("strCountryData");
+
+    // parse dictionaries back into json format
+    let objCountryData = JSON.parse(strCountryData);
+
+    console.log(objCountryData);
+
     $("#instructions").hide();
     $("#capital").empty();
-    $("#capital").append('<h3 class="animated pulse">The capital city of' + object1.countryName + ' is ' + object1.capital+ '.</h3>');
-    $("#capital").append('<p>' + object1.countryName + 'is in the ' + object1.regionName + ' of region.</p>');
-    $("#capital").append("<p>The country's population is currently at</p>");
+    $("#capital").append('<h3 class="animated pulse">The capital city of ' + objCountryData.countryName + ' is ' + objCountryData.capital+ '.</h3>');
+    // $("#capital").append('<p>' + object1.countryName + 'is in the ' + object1.regionName + ' of region.</p>');
+    // $("#capital").append("<p>The country's population is currently at</p>");
     //var population_string = CommaFormatted(object1.population);
-    $("#capital").append('<p style="font-size: 75px;" class="animated tada delay-1s">' + object1.population + '</p>');
+    // $("#capital").append('<p style="font-size: 75px;" class="animated tada delay-1s">' + object1.population + '</p>');
     $("#capital").show();
 });
 
