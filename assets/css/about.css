@@ -1,0 +1,155 @@
+.main-container {
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+}
+
+.nav-bar, .box-settings {
+    display: grid;
+    margin: auto;
+    width: 1100px;
+    grid-gap: 1em;
+}
+
+.box-settings {
+    height: 175px;
+}
+  
+.nav-bar {
+    grid-template-columns: 2fr 4fr;
+}
+
+#header-setting1 {
+    padding-top: 10px;
+    background-color: #FF8246;
+    width: 700px;
+    font-size: 35px;
+    text-align: center;
+    border-radius: 15px 50px 30px 5px;
+    padding-bottom: 10px;
+}
+
+h1 {
+    font-family: 'Amatic SC', cursive;
+    height: 50px;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+ul {
+    list-style-type: none;
+  }
+  
+li {
+    float: right;
+    margin-top: 35px;
+}
+  
+li a {
+    display: inline;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    color: black;
+}
+  
+.left-marg {
+    padding-left: 14px;
+    border-left: 1px inset red;
+}
+  
+.right-marg {
+    padding-right: 14px;
+}
+  
+li a:hover {
+    font-size: 200%;
+    color: red;
+    text-decoration: underline;
+}
+
+li a:active {
+    font-size: 200%;
+    color: orange;
+}
+  
+.container {
+    width: 100%;
+    height: 650px;
+    background-color: whitesmoke;
+    padding-top: 15px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    font-family: 'Amatic SC', cursive;
+    display: flex;
+    justify-content: center;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center; 
+    height: 25px;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-top: 2px solid white;
+    font-family: 'Amatic SC', cursive;
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 500; 
+    line-height: 26.4px;
+    background-color: #FF8246;
+}
+
+.about-info h1{
+    padding-top:50px;
+    text-align: center;
+}
+
+.about-info p{
+    padding: 10px 0px;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.about-instructions{
+    padding-top: 30px;
+}
+
+.about-begin-btn{
+    display: flex;
+    justify-content: center;
+  
+}
+
+#id-begin button{
+    background-color: #FF8246;
+    border-color:red;
+    height: 20px;
+}
+
+
+#about-begin {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-align: center;
+        border-radius: 8px;
+        font-size: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: 'Amatic SC', cursive;
+        margin-top: 5px;
+}
+
+
+
+

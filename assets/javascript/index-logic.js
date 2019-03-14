@@ -12,7 +12,8 @@ localStorage.clear();
 
 // initialize GLOBAL variables 
 var country;
-
+var counter = 0;
+var userName, userState;
 
 // var locationOfInterestTime;
 let strCountryData;
@@ -51,21 +52,37 @@ connectionsRef.on("value", function (snapshot) {
     $("#connected-viewers").text(snapshot.numChildren());
 });
 
+//event listener when a new message is sent to the database
+database.ref("/userdata").on("value", function(shot) {
+    counter++;
+    if(counter === 1) {
+    // Set the local variables for opponent equal to the stored values in firebase.
+    if (shot.child("userName").exists() && shot.child("userState").exists()) 
+        userName = shot.val().userName;
+        userState = shot.val().userState;
+        $("#greeting").append("Hello, " + userName + ", from " + userState + "!");
+    }
+    }, function(errorObject) {
+
+    // In case of error this will print the error
+    console.log("The read failed: " + errorObject.code);
+});
+
 // Whenever a user clicks the click button
 $("#start-button").on("click", function (event) {
     event.preventDefault();
 
     // Get the input values
-    var userName = $("#name").val().trim();
-    var userState = $("#state").val().trim();
+    userName = $("#name").val().trim();
+    userState = $("#state").val().trim();
+    
+    database.ref("/userdata").set({
+        userName: userName,
+        userState: userState
+    });
 
-    $("#intro").hide();
-    $("#globe").hide();
-    $("#user_input").hide();
+    window.location.href = "map.html";
 
-    $("#greeting").append("Hello, " + userName + ", from " + userState + "!");
-    $(".main").show();
-    $("#anychart-embed-ZgsIrI7P").show();
 });
 
 // ############ API DATA RETRIEVE AND STORE  ############ 
@@ -162,6 +179,3 @@ $("#anychart-embed-ZgsIrI7P").dblclick(function () {
     });//end of COUNTRY API CALL
 
 });// end of API DATA RETRIEVE AND STORE
-
-
-

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
+    <!-- Added link to css and styling -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+
+    <!-- Added link to the jQuery Library -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-database.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-firestore.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-messaging.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-functions.js"></script> -->
+        
+     <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment-timezone-with-data-2012-2022.min.js"></script>
+
+</head>
+<body>
+    <iframe src="assets/audio/bensound-buddy.mp3" allow="autoplay" style="display:none" id="iframeAudio"></iframe>
+
+        <h2 id="greeting"></h2>
+        <h2 class="main">There are currently <span id="connected-viewers"></span> people exploring the world with you!</h2>
+    
+      <div class="container">
+        <div id="anychart-embed-ZgsIrI7P" class="anychart-embed anychart-embed-ZgsIrI7P">        
+                <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+                <script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js"></script>
+                <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+                <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+                <script src="https://cdn.anychart.com/releases/v8/geodata/custom/world/world.js"></script>
+                <div id="ac_style_ZgsIrI7P" style="display:none;">
+                html, body, #container {
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+                </div>
+                <script>(function(){
+                function ac_add_to_head(el){
+                  var head = document.getElementsByTagName('head')[0];
+                  head.insertBefore(el,head.firstChild);
+                }
+                function ac_add_link(url){
+                  var el = document.createElement('link');
+                  el.rel='stylesheet';el.type='text/css';el.media='all';el.href=url;
+                  ac_add_to_head(el);
+                }
+                function ac_add_style(css){
+                  var ac_style = document.createElement('style');
+                  if (ac_style.styleSheet) ac_style.styleSheet.cssText = css;
+                  else ac_style.appendChild(document.createTextNode(css));
+                  ac_add_to_head(ac_style);
+                }
+                ac_add_link('https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css');
+                ac_add_style(document.getElementById("ac_style_ZgsIrI7P").innerHTML);
+                ac_add_style(".anychart-embed-ZgsIrI7P{width:1000px;height:700px;}");
+                })();</script>
+                <div id="container"> 
+                </div>
+                <script>
+                anychart.onDocumentReady(function() {
+                    // create map
+                    map = anychart.map();
+                
+                    // create data set
+                    var dataSet = anychart.data.set([
+                    {'id': 'AF', 'value': 0},
+                    {'id': 'AO', 'value': 1},
+                    {'id': 'AL', 'value': 2},
+                    {'id': 'AE', 'value': 3},
+                    {'id': 'AR', 'value': 4},
+                    {'id': 'AM', 'value': 5},
+                    {'id': 'TF', 'value': 6},
+                    {'id': 'AU', 'value': 7},
+                    {'id': 'AT', 'value': 8},
+                    {'id': 'AZ', 'value': 9},
+                    {'id': 'BI', 'value': 10},
+                    {'id': 'BE', 'value': 11},
+                    {'id': 'BJ', 'value': 12},
+                    {'id': 'BF', 'value': 13},
+                    {'id': 'BD', 'value': 14},
+                    {'id': 'BG', 'value': 15},
+                    {'id': 'BA', 'value': 16},
+                    {'id': 'BY', 'value': 17},
+                    {'id': 'BZ', 'value': 18},
+                    {'id': 'BO', 'value': 19},
+                    {'id': 'BR', 'value': 20},
+                    {'id': 'BN', 'value': 21},
+                    {'id': 'BT', 'value': 22},
+                    {'id': 'BW', 'value': 23},
+                    {'id': 'CF', 'value': 24},
+                    {'id': 'CA', 'value': 25},
+                    {'id': 'CH', 'value': 26},
+                    {'id': 'CL', 'value': 27},
+                    {'id': 'CN', 'value': 28},
+                    {'id': 'CI', 'value': 29},
+                    {'id': 'CM', 'value': 30},
+                    {'id': 'Cyprus_U.N._Buffer_Zone', 'value': 31},
+                    {'id': 'CD', 'value': 32},
+                    {'id': 'CG', 'value': 33},
+                    {'id': 'CO', 'value': 34},
+                    {'id': 'CR', 'value': 35},
+                    {'id': 'CU', 'value': 36},
+                    {'id': 'N._Cyprus', 'value': 37},
+                    {'id': 'CY', 'value': 38},
+                    {'id': 'CZ', 'value': 39},
+                    {'id': 'DE', 'value': 40},
+                    {'id': 'DJ', 'value': 41},
+                    {'id': 'DK', 'value': 42},
+                    {'id': 'DO', 'value': 43},
+                    {'id': 'DZ', 'value': 44},
+                    {'id': 'EC', 'value': 45},
+                    {'id': 'EG', 'value': 46},
+                    {'id': 'ER', 'value': 47},
+                    {'id': 'ES', 'value': 48},
+                    {'id': 'EE', 'value': 49},
+                    {'id': 'ET', 'value': 50},
+                    {'id': 'FI', 'value': 51},
+                    {'id': 'FJ', 'value': 52},
+                    {'id': 'FK', 'value': 53},
+                    {'id': 'FR', 'value': 54},
+                    {'id': 'GA', 'value': 55},
+                    {'id': 'GB', 'value': 56},
+                    {'id': 'GE', 'value': 57},
+                    {'id': 'GH', 'value': 58},
+                    {'id': 'GN', 'value': 59},
+                    {'id': 'GW', 'value': 60},
+                    {'id': 'GQ', 'value': 61},
+                    {'id': 'GR', 'value': 62},
+                    {'id': 'GL', 'value': 63},
+                    {'id': 'GT', 'value': 64},
+                    {'id': 'GY', 'value': 65},
+                    {'id': 'HN', 'value': 66},
+                    {'id': 'HR', 'value': 67},
+                    {'id': 'HT', 'value': 68},
+                    {'id': 'HU', 'value': 69},
+                    {'id': 'ID', 'value': 70},
+                    {'id': 'IN', 'value': 71},
+                    {'id': 'IE', 'value': 72},
+                    {'id': 'IR', 'value': 73},
+                    {'id': 'IQ', 'value': 74},
+                    {'id': 'IS', 'value': 75},
+                    {'id': 'IL', 'value': 76},
+                    {'id': 'IT', 'value': 77},
+                    {'id': 'JO', 'value': 78},
+                    {'id': 'JP', 'value': 79},
+                    {'id': 'KZ', 'value': 80},
+                    {'id': 'KE', 'value': 81},
+                    {'id': 'KG', 'value': 82},
+                    {'id': 'KH', 'value': 83},
+                    {'id': 'KR', 'value': 84},
+                    {'id': 'Kosovo', 'value': 85},
+                    {'id': 'KW', 'value': 86},
+                    {'id': 'LA', 'value': 87},
+                    {'id': 'LB', 'value': 88},
+                    {'id': 'LR', 'value': 89},
+                    {'id': 'LY', 'value': 90},
+                    {'id': 'LK', 'value': 91},
+                    {'id': 'LS', 'value': 92},
+                    {'id': 'LT', 'value': 93},
+                    {'id': 'LV', 'value': 94},
+                    {'id': 'MA', 'value': 95},
+                    {'id': 'MD', 'value': 96},
+                    {'id': 'MG', 'value': 97},
+                    {'id': 'MX', 'value': 98},
+                    {'id': 'MK', 'value': 99},
+                    {'id': 'ML', 'value': 100},
+                    {'id': 'MM', 'value': 101},
+                    {'id': 'ME', 'value': 102},
+                    {'id': 'MN', 'value': 103},
+                    {'id': 'MZ', 'value': 104},
+                    {'id': 'MR', 'value': 105},
+                    {'id': 'MW', 'value': 106},
+                    {'id': 'MY', 'value': 107},
+                    {'id': 'NA', 'value': 108},
+                    {'id': 'NC', 'value': 109},
+                    {'id': 'NE', 'value': 110},
+                    {'id': 'NG', 'value': 111},
+                    {'id': 'NI', 'value': 112},
+                    {'id': 'NL', 'value': 113},
+                    {'id': 'NO', 'value': 114},
+                    {'id': 'NP', 'value': 115},
+                    {'id': 'NZ', 'value': 116},
+                    {'id': 'OM', 'value': 117},
+                    {'id': 'PK', 'value': 118},
+                    {'id': 'PA', 'value': 119},
+                    {'id': 'PE', 'value': 120},
+                    {'id': 'PH', 'value': 121},
+                    {'id': 'PG', 'value': 122},
+                    {'id': 'PL', 'value': 123},
+                    {'id': 'PR', 'value': 124},
+                    {'id': 'KP', 'value': 125},
+                    {'id': 'PT', 'value': 126},
+                    {'id': 'PY', 'value': 127},
+                    {'id': 'PS', 'value': 128},
+                    {'id': 'QA', 'value': 129},
+                    {'id': 'RO', 'value': 130},
+                    {'id': 'RW', 'value': 131},
+                    {'id': 'EH', 'value': 132},
+                    {'id': 'SA', 'value': 133},
+                    {'id': 'SD', 'value': 134},
+                    {'id': 'SS', 'value': 135},
+                    {'id': 'SN', 'value': 136},
+                    {'id': 'SL', 'value': 137},
+                    {'id': 'SV', 'value': 138},
+                    {'id': 'Somaliland', 'value': 139},
+                    {'id': 'SO', 'value': 140},
+                    {'id': 'RS', 'value': 141},
+                    {'id': 'SR', 'value': 142},
+                    {'id': 'SK', 'value': 143},
+                    {'id': 'SI', 'value': 144},
+                    {'id': 'SE', 'value': 145},
+                    {'id': 'SZ', 'value': 146},
+                    {'id': 'SY', 'value': 147},
+                    {'id': 'TD', 'value': 148},
+                    {'id': 'TG', 'value': 149},
+                    {'id': 'TH', 'value': 150},
+                    {'id': 'TJ', 'value': 151},
+                    {'id': 'TM', 'value': 152},
+                    {'id': 'TL', 'value': 153},
+                    {'id': 'TN', 'value': 154},
+                    {'id': 'TR', 'value': 155},
+                    {'id': 'TW', 'value': 156},
+                    {'id': 'TZ', 'value': 157},
+                    {'id': 'UG', 'value': 158},
+                    {'id': 'UA', 'value': 159},
+                    {'id': 'UY', 'value': 160},
+                    {'id': 'US', 'value': 161},
+                    {'id': 'UZ', 'value': 162},
+                    {'id': 'VE', 'value': 163},
+                    {'id': 'VN', 'value': 164},
+                    {'id': 'YE', 'value': 165},
+                    {'id': 'ZA', 'value': 166},
+                    {'id': 'ZM', 'value': 167},
+                    {'id': 'ZW', 'value': 168},
+                    {'id': 'RU', 'value': 169}
+                    ]);
+                
+                    // create choropleth series
+                    series = map.choropleth(dataSet);
+                
+                    // set geoIdField to 'id', this field contains in geo data meta properties
+                    //series.geoIdField('id');
+                
+                    // set map color settings
+                    series.colorScale(anychart.scales.linearColor("#46C2FF", '#FF8246'));
+                    series.hovered().fill('#addd8e');
+                
+                    // set geo data, you can find this map in our geo maps collection
+                    // https://cdn.anychart.com/#maps-collection
+                    map.geoData(anychart.maps['world']);
+                
+                    //set map container id (div)
+                    map.container('container');
+                
+                    //initiate map drawing
+                    map.draw();
+      
+                    map.listen('pointClick', function(e) {
+                      map.zoomToFeature(e.point.get('id'));
+                    })
+      
+                    map.listen('pointClick', function(e) {
+                      country = e.point.get('id');
+                      console.log(country);
+                    })
+      
+                     //enable the tooltips and format them at once
+                    series.tooltip().format(function(e){
+                      return ""
+                    });
+                });
+                </script>
+                <h4>Single click to zoom in or out.</h4>
+                <h4>Double click to learn more about the country.</h4>
+                </div>
+          </div>
+        
+          <!-- Add reference to js file -->
+          <!-- <script type="text/javascript" src="assets/javascript/keys.js"></script> -->
+          <script type="text/javascript" src="assets/javascript/index-logic.js"></script>
+      
+      </body>
+      </html>

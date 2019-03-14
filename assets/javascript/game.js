@@ -15,7 +15,7 @@ objForecastWeather6days = JSON.parse(strForecastWeather6days);
 strLocationOfInterestTime = localStorage.getItem("strLocationOfInterestTime");
 // parse dictionaries back into json format
 objLocationOfInterestTime = JSON.parse(strLocationOfInterestTime);
-
+console.log(objForecastWeather6days);
 // ------------- CURRENCY API CALL -------------
 // execute the  conversion using the "convert" endpoint:
 let access_key = "0ca86bec1f0165a7741f";
@@ -90,8 +90,8 @@ $("#capital-city").on("click",function() {
     clear_display();
     $("#instructions").hide();
     $("#capital").empty();
-    $("#capital").append('<h3 class="animated pulse">The capital city of ' + objCountryData.countryName + ' is ' + objCountryData.capital+ '.</h3>');
-    $("#capital").append('<p>' + objCountryData.countryName + 'is in the ' + objCountryData.regionName + ' of region.</p>');
+    $("#capital").append('<h3 class="animated pulse">The capital city of ' + objCountryData.countryName + ' is <u>' + objCountryData.capital+ '</u>.</h3>');
+    $("#capital").append('<p>' + objCountryData.countryName + ' is in the ' + objCountryData.region + ' region.</p>');
     $("#capital").append("<p>The country's population is currently at</p>");
     $("#capital").append('<p style="font-size: 75px;" class="animated tada delay-1s">' + objCountryData.population + '</p>');
     $("#capital").show();
@@ -105,16 +105,15 @@ $("#display_flag").click(function() {
 
 $("#display_lang").click(function() {
     clear_display();
-    $("#language").append('<h3>The official language of '+ objCountryData.countryName +' is ' + objCountryData.language + '.<h3>');
-    $("#language").append('<p>Click here to translate all the words on this page!</p>');
-    $("#language").append('<p>Hello</p>');
-    $("#language").append('<p>Goodbye</p>');
-    $("#language").append('<p>Thank you</p>');
+    $("#language").append('<h3 class="animated flipInX">The official language of '+ objCountryData.countryName +' is <u>' + objCountryData.language + '</u>.<h3>');
+    $("#language").append('<p>Click translate button and see all words on this page change!</p>');
+    $("#language").append("Once clicked move box so you can see/pick the desired language<div id='MicrosoftTranslatorWidget' class='Dark' style='color:white;background-color:#555555'></div><script type='text/javascript'>setTimeout(function(){{var s=document.createElement('script');s.type='text/javascript';s.charset='UTF-8';s.src=((location && location.href && location.href.indexOf('https') == 0)?'https://ssl.microsofttranslator.com':'http://www.microsofttranslator.com')+'/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=False&ui=true&settings=Manual&from=';var p=document.getElementsByTagName('head')[0]||document.documentElement;p.insertBefore(s,p.firstChild); }},0);</script>");
+    $("#language").append('<p  class="animated lightSpeedIn">Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Goodbye&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thank you&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>');
 });
 
 $("#display_weather").click(function() {
     clear_display();
-    $("#weather").append('<img class="animated heartBeat" src="http://cdn.worldweatheronline.net/images/wsymbols01_png_64/wsymbol_0001_sunny.png">');
+    $("#weather").append('<img class="animated heartBeat" src="' + objForecastWeather6days[0].currentWeatherIcon + '">');
     $("#weather").append('<h3 class="animated tada">It is currently '+ objForecastWeather6days[0].currentWeatherF +' ℉ in '+  objCountryData.capital + '.</h3>');       
     // $("#weather").append('<h7>Click image and see what happens</h7>');
     $("#weather").append('<p class="animated slideInLeft">Next 3-day Weather Forecast</p>');
@@ -124,10 +123,10 @@ $("#display_weather").click(function() {
 
 $("#display_currency").click(function() {
     clear_display();
-    $("#currency").append('<h3>' + objCountryData.countryName +' uses '+ objCountryData.currencyName +'.<h3>');
-    $("#currency").append('<p>$1 US Dollar = $ '+ usDollarsToCountry +' ' + objCountryData.currencyName +'</p>');
-    $("#currency").append('<p>or</p>');
-    $("#currency").append('<p>$1 '+objCountryData.currencyName+ ' = $ ' +countryToUsDollars+ ' US Dollar.</p>');  
+    $("#currency").append('<h3  class="animated fadeInDown">' + objCountryData.countryName +' uses <u>'+ objCountryData.currencyName +'</u>.<h3>');
+    $("#currency").append('<p  class="animated fadeInDown delay-1s">$1 US Dollar = $ '+ usDollarsToCountry +' ' + objCountryData.currencyName +'</p>');
+    $("#currency").append('<p  class="animated fadeInDown delay-2s">or</p>');
+    $("#currency").append('<p  class="animated fadeInDown delay-3s">$1 '+objCountryData.currencyName+ ' = $ ' +countryToUsDollars+ ' US Dollar.</p>');  
     if (objCountryData.countryName === "United States of America")  {
         clear_display();
         $("#currency").append('<p>$1 United States dollar = $1 United States dollar.</p>');  
@@ -155,4 +154,3 @@ function clear_display() {
     $("#weather").empty();
     $("#date-time").empty();
 }
-
