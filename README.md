@@ -30,3 +30,4 @@ https://sharonpamela.github.io/Project-GeographFun/
 
 * For future development - incorporate a language translator to translate specific words in a foreign language; add Games for a more interactive experience; include an interactive map of the specific country.
 
+Presentation Slide Link: https://docs.google.com/presentation/d/1DXiFufSnBA-fzNkoHcnGZvJ-txEC4ilPI4sygLWoLjY/edit?usp=sharing
