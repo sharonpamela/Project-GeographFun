@@ -5,6 +5,9 @@ This project's goal is to educate children about geography in a fun and interact
 
 In this project, we have created a web learning tool for children of age to learn about other countries in the world.
 
+### Access to page:
+https://sharonpamela.github.io/Project-GeographFun/
+
 ### Web App Design Notes 
 
 * The game is called GeographFun - a play on the word geography that will target mainly kids between 8-12 yo or students to help them learn geography in a fun, interactive way.
