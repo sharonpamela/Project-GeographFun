@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+
+    <!-- Added link to css and styling -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+
+    <!-- Added link to the jQuery Library -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-database.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-firestore.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-messaging.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-functions.js"></script> -->
+        
+     <!-- Link to Moment.js should go here -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment-timezone-with-data-2012-2022.min.js"></script>
+
+</head>
+<body>
+    
+    <iframe src="assets/audio/bensound-ukulele.mp3" allow="autoplay" style="display:none" id="iframeAudio"></iframe>
+
+    <div class="container">
+      <h3 id="intro">Hello, explorer!</h3>
+      <img id="globe" src="assets/images/animated-globe-gif-26.gif">
+      <form id="user_input">
+        What is your first name?<br>
+        <input id="name" type="text" name="firstname"><br>
+        Which state are you in?<br>
+        <input id="state" type="text" name="state"><br>
+        <a href="#"><button id="start-button" class="button">All set!</button></a>
+      </form>
+
+    </div>
+  
+    <!-- Add reference to js file -->
+    <!-- <script type="text/javascript" src="assets/javascript/keys.js"></script> -->
+    <script type="text/javascript" src="assets/javascript/logic.js"></script>
+
+</body>
+</html>
