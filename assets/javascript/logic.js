@@ -49,6 +49,19 @@ connectionsRef.on("value", function (snapshot) {
     $("#connected-viewers").text(snapshot.numChildren());
 });
 
+    //event listener when a new message is sent to the database
+    database.ref("/userdata").on("value", function(shot) {
+
+        // Set the local variables for opponent equal to the stored values in firebase.
+       if (shot.child("userName").exists() && shot.child("userState").exists()) 
+            $("#greeting").append("Hello, " + shot.val().userName + ", from " + shot.val().userState + "!");
+        
+        }, function(errorObject) {
+
+        // In case of error this will print the error
+        console.log("The read failed: " + errorObject.code);
+    });
+
 // Whenever a user clicks the click button
 $("#start-button").on("click", function (event) {
     event.preventDefault();
@@ -57,13 +70,12 @@ $("#start-button").on("click", function (event) {
     var userName = $("#name").val().trim();
     var userState = $("#state").val().trim();
 
-    $("#intro").hide();
-    $("#globe").hide();
-    $("#user_input").hide();
+    database.ref("/userdata").set({
+        userName: userName,
+        userState: userState
+    });
 
-    $("#greeting").append("Hello, " + userName + ", from " + userState + "!");
-    $(".main").show();
-    $("#anychart-embed-ZgsIrI7P").show();
+    window.location.href = "map.html";
 });
 
 $("#anychart-embed-ZgsIrI7P").dblclick(function(){
@@ -235,8 +247,6 @@ $.ajax({
   // parse dictionaries back into json format
   //let objLocationOfInterestTime = JSON.parse(strLocationOfInterestTime);
  
-
-$("#country_name").text(objCountryData.countryName);
 
 
 // $("#capital-city").click(countryData, function(object1) {
