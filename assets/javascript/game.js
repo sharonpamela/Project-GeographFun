@@ -156,3 +156,7 @@ function clear_display() {
     $("#date-time").empty();
 }
 
+$("#mapButton").on("click",function(){
+    console.log("clicked map button");
+})
+

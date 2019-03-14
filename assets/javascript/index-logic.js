@@ -21,6 +21,8 @@ let strForecastWeather6days;
 let objForecastWeather6days;
 let strLocationOfInterestTime;
 let objLocationOfInterestTime;
+let userName = "";
+let userState = "";
 
 // Create a variable to reference the database.
 var database = firebase.database();
@@ -39,8 +41,11 @@ connectedRef.on("value", function (snap) {
     if (snap.val()) {
         // Add user to the connections list.
         var con = connectionsRef.push(true);
+   
         // Remove user from the connection list when they disconnect.
+ 
         con.onDisconnect().remove();
+     
     }
 });
 
@@ -51,13 +56,25 @@ connectionsRef.on("value", function (snapshot) {
     $("#connected-viewers").text(snapshot.numChildren());
 });
 
+$("#mapButton").on("click",function(){
+    $("#intro").hide();
+    $("#globe").hide();
+    $("#user_input").hide();
+
+    $("#greeting").append("Hello, " + userName + ", from " + userState + "!");
+    $(".main").show();
+    $("#anychart-embed-ZgsIrI7P").show();
+})
+
+
+
 // Whenever a user clicks the click button
 $("#start-button").on("click", function (event) {
     event.preventDefault();
 
     // Get the input values
-    var userName = $("#name").val().trim();
-    var userState = $("#state").val().trim();
+    userName = $("#name").val().trim();
+    userState = $("#state").val().trim();
 
     $("#intro").hide();
     $("#globe").hide();
@@ -67,6 +84,11 @@ $("#start-button").on("click", function (event) {
     $(".main").show();
     $("#anychart-embed-ZgsIrI7P").show();
 });
+
+
+
+
+
 
 // ############ API DATA RETRIEVE AND STORE  ############ 
 // function to construct API query URLs, call APIS, store important info in local storage
